@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+.env
+.env.*
+!.env.example
+.vscode/
+data/
+static/images/.*.jpg
+templates/pages/dist/
+templates/sections/dist/
