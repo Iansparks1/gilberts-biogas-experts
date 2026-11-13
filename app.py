@@ -14,7 +14,8 @@ from pymongo.errors import PyMongoError
 
 
 ROOT = Path(__file__).resolve().parent
-PORT = 8000
+HOST = "0.0.0.0"
+PORT = int(os.environ.get("PORT", 8000))
 SECTIONS = ("header", "hero", "about", "solutions", "process", "impact", "contact", "footer")
 PAGE_TITLES = {
     "home": "Gilbert's BioGas Experts | Good energy, naturally",
@@ -298,8 +299,8 @@ class BiogasRequestHandler(BaseHTTPRequestHandler):
 
 if __name__ == "__main__":
     initialize_database()
-    server = ThreadingHTTPServer(("127.0.0.1", PORT), BiogasRequestHandler)
-    print(f"Gilbert's BioGas Experts is running at http://127.0.0.1:{PORT}")
+    server = ThreadingHTTPServer((HOST, PORT), BiogasRequestHandler)
+    print(f"Gilbert's BioGas Experts is running on {HOST}:{PORT}")
     try:
         server.serve_forever()
     except KeyboardInterrupt:
