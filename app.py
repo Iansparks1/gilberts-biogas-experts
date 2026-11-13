@@ -299,12 +299,14 @@ class BiogasRequestHandler(BaseHTTPRequestHandler):
 
 if __name__ == "__main__":
     initialize_database()
-    server = ThreadingHTTPServer((HOST, PORT), BiogasRequestHandler)
-    print(f"Gilbert's BioGas Experts is running on {HOST}:{PORT}")
+    port = int(os.environ.get("PORT", 8000))
+    server = ThreadingHTTPServer(("0.0.0.0", port), BiogasRequestHandler)
+    print(f"Gilbert's BioGas Experts is running on port {port}")
     try:
         server.serve_forever()
     except KeyboardInterrupt:
         print("\nServer stopped.")
     finally:
         server.server_close()
-        mongo_client.close()
+        if mongo_client:
+            mongo_client.close()
