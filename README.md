@@ -62,3 +62,16 @@ python app.py
 ```
 
 Open <http://127.0.0.1:8000> in your browser. Enquiries are saved in the `gilberts_biogas` database's `enquiries` collection by default. Set `MONGODB_URI` to your MongoDB connection string and optionally set `MONGODB_DATABASE` to use a different database. The website can start if MongoDB is temporarily unavailable, but contact submissions return an error until the database can be reached.
+
+## Deploy to Render
+
+Create a Render **Web Service** with the repository root as its root directory,
+`pip install -r requirements.txt` as the build command, and `python app.py` as
+the start command. The server listens on `0.0.0.0` and uses Render's `PORT`
+environment variable.
+
+To enable contact form submissions, add `MONGODB_URI` in the Render service's
+environment settings and set it to your MongoDB connection string. If you use
+MongoDB Atlas, make sure its network access rules allow connections from
+Render. Without a reachable MongoDB instance, the site can still start, but
+contact submissions will fail.
